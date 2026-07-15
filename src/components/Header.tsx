@@ -175,7 +175,7 @@ export default function Header({
                   {settings?.logoText || 'LIVING WITH SOUFIA'}
                 </h1>
                 <span className="hidden sm:block font-mono text-[8px] uppercase tracking-[0.4em] text-theme-text-muted mt-1.5 transition-colors group-hover:text-accent">
-                  {settings?.logoSubtext || "Style, Space & Curation"}
+                  {settings?.logoSubtext || "Fashion, Lifestyle & Beauty"}
                 </span>
               </>
             )}
