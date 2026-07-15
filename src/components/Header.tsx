@@ -172,10 +172,10 @@ export default function Header({
             ) : (
               <>
                 <h1 className="font-serif text-2xl sm:text-3xl lg:text-[34px] tracking-[0.25em] font-bold text-theme-text uppercase select-none transition-all duration-300 group-hover:text-accent">
-                  {settings?.logoText || 'Éloquence'}
+                  {settings?.logoText || 'LIVING WITH SOUFIA'}
                 </h1>
                 <span className="hidden sm:block font-mono text-[8px] uppercase tracking-[0.4em] text-theme-text-muted mt-1.5 transition-colors group-hover:text-accent">
-                  {settings?.logoSubtext || "Journal d'un esprit calme"}
+                  {settings?.logoSubtext || "Style, Space & Curation"}
                 </span>
               </>
             )}
