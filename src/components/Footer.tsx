@@ -23,13 +23,13 @@ export default function Footer({ setActiveCategory, onBackToHome, onNavigateToSt
           {/* Column 1: Branding and Quote */}
           <div className="md:col-span-4 flex flex-col gap-4">
             <h3 className="font-serif text-xl tracking-[0.2em] uppercase font-bold text-theme-text">
-              ÉLOQUENCE
+              LIVING WITH SOUFIA
             </h3>
             <p className="font-mono text-[8px] uppercase tracking-[0.3em] text-theme-text-muted -mt-2">
-              Journal d'un esprit calme
+              Style, Space & Curation
             </p>
             <p className="text-xs text-theme-text-sub leading-relaxed max-w-sm mt-2">
-              Our journal explores the beauty of subtraction, quiet design, and physical mindfulness. We examine space not as a void, but as a potential—a sanctuary for self-reflection and genuine creative focus.
+              Our journal explores the beauty of design, architecture, and lifestyle curation. We curate exquisite living spaces, classic styling elements, and physical mindfulness.
             </p>
           </div>
 
@@ -88,7 +88,7 @@ export default function Footer({ setActiveCategory, onBackToHome, onNavigateToSt
             </span>
             <p className="text-xs text-theme-text-sub leading-relaxed">
               Paris & Tokyo Studios<br />
-              <span className="font-mono text-[10px] text-theme-text-muted">contact@eloquence.com</span>
+              <span className="font-mono text-[10px] text-theme-text-muted">contact@livingwithsoufia.com</span>
             </p>
             <p className="text-xs text-theme-text-muted font-mono mt-2">
               Local Time: 2026-07-10
@@ -99,7 +99,7 @@ export default function Footer({ setActiveCategory, onBackToHome, onNavigateToSt
         {/* Bottom Banner */}
         <div className="border-t border-theme-border mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-[10px] text-theme-text-muted font-mono">
-            &copy; 2026 ÉLOQUENCE JOURNAL. All rights reserved.
+            &copy; 2026 LIVING WITH SOUFIA. All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-[10px] text-theme-text-muted font-mono">
             <a href="#terms" className="hover:text-theme-text transition-colors">TERMS OF SERVICE</a>

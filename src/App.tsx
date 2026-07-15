@@ -33,9 +33,9 @@ export default function App() {
   const [articles, setArticles] = useState<Article[]>(initialArticles);
   const [categories, setCategories] = useState<string[]>(['Wellness', 'Fashion', 'Travel', 'Culture', 'Lifestyle']);
   const [settings, setSettings] = useState({
-    logoText: 'ÉLOQUENCE',
-    logoSubtext: "Journal d'un esprit calme",
-    siteTitle: "ÉLOQUENCE — Journal d'un esprit calme",
+    logoText: 'LIVING WITH SOUFIA',
+    logoSubtext: "Style, Space & Curation",
+    siteTitle: "LIVING WITH SOUFIA — Style, Space & Curation",
     logoUrl: ''
   });
 

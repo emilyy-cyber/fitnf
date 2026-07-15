@@ -50,7 +50,7 @@ function readDb(): Database {
       id: 'store-1',
       name: 'Nordstrom',
       slug: 'nordstrom',
-      logo: 'https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=120&q=80',
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/2/23/Nordstrom_logo.svg',
       description: 'Premium designer apparel, luxury footwear, fine jewelry, beauty products, and homeware.',
       targetUrl: 'https://go.shopmy.us/p-27453061',
       category: 'Fashion',
@@ -246,9 +246,9 @@ function readDb(): Database {
       articles: defaultArticles,
       categories: ['Wellness', 'Fashion', 'Travel', 'Culture', 'Lifestyle'],
       settings: {
-        logoText: 'ÉLOQUENCE',
-        logoSubtext: "Journal d'un esprit calme",
-        siteTitle: "ÉLOQUENCE — Journal d'un esprit calme",
+        logoText: 'LIVING WITH SOUFIA',
+        logoSubtext: "Style, Space & Curation",
+        siteTitle: "LIVING WITH SOUFIA — Style, Space & Curation",
         logoUrl: ''
       },
       stores: defaultStores,

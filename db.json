@@ -605,9 +605,9 @@
     "Lifestyle"
   ],
   "settings": {
-    "logoText": "ÉLOQUENCE",
-    "logoSubtext": "Journal d'un esprit calme",
-    "siteTitle": "ÉLOQUENCE — Journal d'un esprit calme",
+    "logoText": "LIVING WITH SOUFIA",
+    "logoSubtext": "Style, Space & Curation",
+    "siteTitle": "LIVING WITH SOUFIA — Style, Space & Curation",
     "logoUrl": ""
   },
   "stores": [
@@ -615,7 +615,7 @@
       "id": "store-1",
       "name": "Nordstrom",
       "slug": "nordstrom",
-      "logo": "https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=120&q=80",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/2/23/Nordstrom_logo.svg",
       "description": "Premium designer apparel, luxury footwear, fine jewelry, beauty products, and homeware.",
       "targetUrl": "https://go.shopmy.us/p-27453061",
       "category": "Fashion",
@@ -722,7 +722,7 @@
       "description": "Earn 1% cash back on all your purchases sitewide. Activate this deal to lock in your extra savings.",
       "targetUrl": "https://go.shopmy.us/p-27453061",
       "verified": true,
-      "usedCount": 1289
+      "usedCount": 1290
     },
     {
       "id": "coupon-nord-8",
