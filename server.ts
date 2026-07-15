@@ -52,7 +52,7 @@ function readDb(): Database {
       slug: 'nordstrom',
       logo: 'https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=120&q=80',
       description: 'Premium designer apparel, luxury footwear, fine jewelry, beauty products, and homeware.',
-      targetUrl: 'https://www.nordstrom.com',
+      targetUrl: 'https://go.shopmy.us/p-27453061',
       category: 'Fashion',
       featured: true
     },
@@ -80,26 +80,94 @@ function readDb(): Database {
 
   const defaultCoupons = [
     {
-      id: 'coupon-1',
+      id: 'coupon-nord-1',
       storeId: 'store-1',
-      title: 'Up to 60% Off Designer Sale & Clearance',
-      discount: 'UP TO 60% OFF',
+      title: 'Get a $40 Bonus Note with Nordstrom Card & Purchase',
+      discount: '$40 BONUS',
       type: 'deal',
-      description: 'Save on premium designer apparel, luxury footwear, activewear, beauty, and homeware during the active markdowns event. No code needed.',
-      targetUrl: 'https://www.nordstrom.com/sale',
+      description: 'Apply for a Nordstrom Credit Card, get approved, and make a purchase on the same day to unlock an exclusive $40 bonus promotional Note for your next shopping trip.',
+      targetUrl: 'https://go.shopmy.us/p-27453061',
       verified: true,
-      usedCount: 6831
+      usedCount: 8431
     },
     {
-      id: 'coupon-2',
+      id: 'coupon-nord-2',
       storeId: 'store-1',
-      title: 'Join The Nordy Club for a $10 Bonus Note',
-      discount: '$10 BONUS',
+      title: "Up to 60% Off Men's, Women's, & Kids' Designer Sale",
+      discount: 'UP TO 60% OFF',
       type: 'deal',
-      description: 'Sign up for free to join The Nordy Club. Earn reward points on all purchases and unlock a $10 bonus promotional Note.',
-      targetUrl: 'https://www.nordstrom.com/nordy-club',
+      description: 'Save up to 60% on premium designer apparel, luxury handbags, fine shoes, and home goods during active seasonal clearances. No coupon code required.',
+      targetUrl: 'https://go.shopmy.us/p-27453061',
       verified: true,
-      usedCount: 4120
+      usedCount: 9120
+    },
+    {
+      id: 'coupon-nord-3',
+      storeId: 'store-1',
+      title: 'Get 15% Off Your First Purchase with a New Account',
+      discount: '15% OFF',
+      type: 'code',
+      code: 'WELCOME15',
+      description: 'New customers can unlock an additional 15% discount on selected designer apparel and lifestyle items. Apply code at checkout.',
+      targetUrl: 'https://go.shopmy.us/p-27453061',
+      verified: true,
+      usedCount: 3810
+    },
+    {
+      id: 'coupon-nord-4',
+      storeId: 'store-1',
+      title: 'Free Standard Shipping & Free Returns on Most Orders',
+      discount: 'FREE SHIP',
+      type: 'deal',
+      description: 'Enjoy complimentary standard shipping and returns within the United States with no minimum purchase requirement on eligible designer selections.',
+      targetUrl: 'https://go.shopmy.us/p-27453061',
+      verified: true,
+      usedCount: 11420
+    },
+    {
+      id: 'coupon-nord-5',
+      storeId: 'store-1',
+      title: 'Up to 50% Off Luxury Beauty, Skincare & Fragrances',
+      discount: 'UP TO 50% OFF',
+      type: 'deal',
+      description: 'Discover massive active markdowns on premium makeup, high-end skincare, and luxury perfumes from MAC, Estée Lauder, Clinique, and more.',
+      targetUrl: 'https://go.shopmy.us/p-27453061',
+      verified: true,
+      usedCount: 5912
+    },
+    {
+      id: 'coupon-nord-6',
+      storeId: 'store-1',
+      title: 'Free Exclusive Cosmetics Gift with Select Beauty Orders',
+      discount: 'FREE GIFT',
+      type: 'deal',
+      description: 'Receive an exclusive, curated cosmetics bag filled with premium skincare and makeup samples when you buy qualifying luxury beauty items.',
+      targetUrl: 'https://go.shopmy.us/p-27453061',
+      verified: true,
+      usedCount: 2043
+    },
+    {
+      id: 'coupon-nord-7',
+      storeId: 'store-1',
+      title: 'Spend $150 on Gift Cards, Get a $20 Promotional Card',
+      discount: '$20 REWARD',
+      type: 'deal',
+      description: 'Buy $150 or more in Nordstrom Gift Cards online and receive an automatic $20 promotional card sent directly to your registered email.',
+      targetUrl: 'https://go.shopmy.us/p-27453061',
+      verified: true,
+      usedCount: 1289
+    },
+    {
+      id: 'coupon-nord-8',
+      storeId: 'store-1',
+      title: 'Take 20% Off Select New Season Dresses & Tailoring',
+      discount: '20% OFF',
+      type: 'code',
+      code: 'SEASON20',
+      description: 'Refresh your formal wear wardrobe with an additional 20% off selected dresses, blazers, and luxury accessories. Use code at checkout.',
+      targetUrl: 'https://go.shopmy.us/p-27453061',
+      verified: true,
+      usedCount: 4202
     },
     {
       id: 'coupon-3',
