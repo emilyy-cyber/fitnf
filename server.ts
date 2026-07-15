@@ -82,10 +82,11 @@ function readDb(): Database {
     {
       id: 'coupon-nord-1',
       storeId: 'store-1',
-      title: 'Get a $40 Bonus Note with Nordstrom Card & Purchase',
-      discount: '$40 BONUS',
-      type: 'deal',
-      description: 'Apply for a Nordstrom Credit Card, get approved, and make a purchase on the same day to unlock an exclusive $40 bonus promotional Note for your next shopping trip.',
+      title: '20% Off Your Order With Code Online Only at Nordstrom',
+      discount: '20% OFF',
+      type: 'code',
+      code: 'NORDYCLUB20',
+      description: 'Enjoy an extra 20% off your online order with this limited-time code. Online only at Nordstrom.',
       targetUrl: 'https://go.shopmy.us/p-27453061',
       verified: true,
       usedCount: 8431
@@ -93,10 +94,10 @@ function readDb(): Database {
     {
       id: 'coupon-nord-2',
       storeId: 'store-1',
-      title: "Up to 60% Off Men's, Women's, & Kids' Designer Sale",
+      title: "Top Sale! Upto 60% Off Biggest All Womens & Mens Sale at Nordstrom",
       discount: 'UP TO 60% OFF',
       type: 'deal',
-      description: 'Save up to 60% on premium designer apparel, luxury handbags, fine shoes, and home goods during active seasonal clearances. No coupon code required.',
+      description: "Save up to 60% during the biggest all Women's & Men's apparel and footwear sale at Nordstrom. Active ongoing offer.",
       targetUrl: 'https://go.shopmy.us/p-27453061',
       verified: true,
       usedCount: 9120
@@ -104,11 +105,11 @@ function readDb(): Database {
     {
       id: 'coupon-nord-3',
       storeId: 'store-1',
-      title: 'Get 15% Off Your First Purchase with a New Account',
-      discount: '15% OFF',
+      title: '55% Off Sitewide With Code at Nordstrom',
+      discount: '55% OFF',
       type: 'code',
-      code: 'WELCOME15',
-      description: 'New customers can unlock an additional 15% discount on selected designer apparel and lifestyle items. Apply code at checkout.',
+      code: 'GET55OFF',
+      description: 'Unbelievable sitewide savings! Take 55% off your entire purchase when you apply this coupon code at checkout.',
       targetUrl: 'https://go.shopmy.us/p-27453061',
       verified: true,
       usedCount: 3810
@@ -116,10 +117,11 @@ function readDb(): Database {
     {
       id: 'coupon-nord-4',
       storeId: 'store-1',
-      title: 'Free Standard Shipping & Free Returns on Most Orders',
-      discount: 'FREE SHIP',
-      type: 'deal',
-      description: 'Enjoy complimentary standard shipping and returns within the United States with no minimum purchase requirement on eligible designer selections.',
+      title: 'Free Gift With Purchase With Code at Nordstrom',
+      discount: 'FREE GIFT',
+      type: 'code',
+      code: 'SUPREME',
+      description: 'Receive a luxury exclusive free gift with your qualified purchase. Apply coupon code at checkout.',
       targetUrl: 'https://go.shopmy.us/p-27453061',
       verified: true,
       usedCount: 11420
@@ -127,10 +129,11 @@ function readDb(): Database {
     {
       id: 'coupon-nord-5',
       storeId: 'store-1',
-      title: 'Up to 50% Off Luxury Beauty, Skincare & Fragrances',
-      discount: 'UP TO 50% OFF',
-      type: 'deal',
-      description: 'Discover massive active markdowns on premium makeup, high-end skincare, and luxury perfumes from MAC, Estée Lauder, Clinique, and more.',
+      title: 'Upto 60% Off All Designer Clearance at Nordstrom',
+      discount: 'UP TO 60% OFF',
+      type: 'code',
+      code: '3394838',
+      description: 'Take up to 60% off high-end designer clearance items. Enter code at checkout to claim your savings.',
       targetUrl: 'https://go.shopmy.us/p-27453061',
       verified: true,
       usedCount: 5912
@@ -138,10 +141,10 @@ function readDb(): Database {
     {
       id: 'coupon-nord-6',
       storeId: 'store-1',
-      title: 'Free Exclusive Cosmetics Gift with Select Beauty Orders',
-      discount: 'FREE GIFT',
+      title: 'Get $60 Off Just In Time For Anniversary Sale at Nordstrom',
+      discount: '$60 OFF',
       type: 'deal',
-      description: 'Receive an exclusive, curated cosmetics bag filled with premium skincare and makeup samples when you buy qualifying luxury beauty items.',
+      description: 'Get $60 off your orders just in time for the highly anticipated Nordstrom Anniversary Sale event.',
       targetUrl: 'https://go.shopmy.us/p-27453061',
       verified: true,
       usedCount: 2043
@@ -149,10 +152,10 @@ function readDb(): Database {
     {
       id: 'coupon-nord-7',
       storeId: 'store-1',
-      title: 'Spend $150 on Gift Cards, Get a $20 Promotional Card',
-      discount: '$20 REWARD',
+      title: '1% Cash Back for Purchases Sitewide at Nordstrom',
+      discount: '1% CASHBACK',
       type: 'deal',
-      description: 'Buy $150 or more in Nordstrom Gift Cards online and receive an automatic $20 promotional card sent directly to your registered email.',
+      description: 'Earn 1% cash back on all your purchases sitewide. Activate this deal to lock in your extra savings.',
       targetUrl: 'https://go.shopmy.us/p-27453061',
       verified: true,
       usedCount: 1289
@@ -160,14 +163,57 @@ function readDb(): Database {
     {
       id: 'coupon-nord-8',
       storeId: 'store-1',
-      title: 'Take 20% Off Select New Season Dresses & Tailoring',
-      discount: '20% OFF',
-      type: 'code',
-      code: 'SEASON20',
-      description: 'Refresh your formal wear wardrobe with an additional 20% off selected dresses, blazers, and luxury accessories. Use code at checkout.',
+      title: 'Upto 40% Off New Markdowns Sale at Nordstrom',
+      discount: 'UP TO 40% OFF',
+      type: 'deal',
+      description: 'Discover fresh markdowns on shoes, dresses, activewear, and beauty. Save up to 40% instantly without a code.',
       targetUrl: 'https://go.shopmy.us/p-27453061',
       verified: true,
       usedCount: 4202
+    },
+    {
+      id: 'coupon-nord-9',
+      storeId: 'store-1',
+      title: 'Upto 25% Off Womens & Mens Best Seller Sale at Nordstrom',
+      discount: 'UP TO 25% OFF',
+      type: 'deal',
+      description: "Save up to 25% on the most popular, best-selling styles for women and men at Nordstrom.",
+      targetUrl: 'https://go.shopmy.us/p-27453061',
+      verified: true,
+      usedCount: 3543
+    },
+    {
+      id: 'coupon-nord-10',
+      storeId: 'store-1',
+      title: 'New Arrivals Under $100 at Nordstrom',
+      discount: 'UNDER $100',
+      type: 'deal',
+      description: 'Browse a curated collection of newly arrived trends and style essentials, all priced under $100.',
+      targetUrl: 'https://go.shopmy.us/p-27453061',
+      verified: true,
+      usedCount: 5120
+    },
+    {
+      id: 'coupon-nord-11',
+      storeId: 'store-1',
+      title: '50% Off All Womens Sale at Nordstrom',
+      discount: '50% OFF',
+      type: 'deal',
+      description: "Save a flat 50% on selected women's dresses, coats, shoes, handbags, and fine accessories.",
+      targetUrl: 'https://go.shopmy.us/p-27453061',
+      verified: true,
+      usedCount: 6124
+    },
+    {
+      id: 'coupon-nord-12',
+      storeId: 'store-1',
+      title: 'Earn A $25 Promo Card On $150+ Gift Card At Nordstrom',
+      discount: '$25 BONUS',
+      type: 'deal',
+      description: 'Purchase $150 or more in gift cards online and earn a $25 bonus promotional card to spend later.',
+      targetUrl: 'https://go.shopmy.us/p-27453061',
+      verified: true,
+      usedCount: 1823
     },
     {
       id: 'coupon-3',
