@@ -34,8 +34,8 @@ export default function App() {
   const [categories, setCategories] = useState<string[]>(['Wellness', 'Fashion', 'Travel', 'Culture', 'Lifestyle']);
   const [settings, setSettings] = useState({
     logoText: 'LIVING WITH SOUFIA',
-    logoSubtext: "Style, Space & Curation",
-    siteTitle: "LIVING WITH SOUFIA — Style, Space & Curation",
+    logoSubtext: "Fashion, Lifestyle & Beauty",
+    siteTitle: "LIVING WITH SOUFIA — Fashion, Lifestyle & Beauty",
     logoUrl: ''
   });
 

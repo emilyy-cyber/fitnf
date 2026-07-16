@@ -19,7 +19,7 @@ export const articles: Article[] = [
       "<p class=\"text-theme-text-sub text-base sm:text-lg mb-4 leading-relaxed\">\n  As I mentioned before, I will be filming hauls on my YouTube channel as and when I receive the items, so check back if you did want to see try-ons of these items. And that’s it for this blog post. I hope you found it helpful if you’re shopping the sale and looking for a little bit of inspiration!\n</p>\n<p class=\"text-theme-text text-base sm:text-lg mb-4 font-serif italic\">\n  Happy shopping, darlings!\n</p>"
     ],
     "category": "Fashion",
-    "image": "/src/assets/images/nordstrom_sale_featured_1784133049089.jpg",
+    "image": "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80",
     "date": "July 15, 2026",
     "readTime": "8 min read",
     "author": {

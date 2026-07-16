@@ -247,8 +247,8 @@ function readDb(): Database {
       categories: ['Wellness', 'Fashion', 'Travel', 'Culture', 'Lifestyle'],
       settings: {
         logoText: 'LIVING WITH SOUFIA',
-        logoSubtext: "Style, Space & Curation",
-        siteTitle: "LIVING WITH SOUFIA — Style, Space & Curation",
+        logoSubtext: "Fashion, Lifestyle & Beauty",
+        siteTitle: "LIVING WITH SOUFIA — Fashion, Lifestyle & Beauty",
         logoUrl: ''
       },
       stores: defaultStores,
@@ -547,7 +547,7 @@ app.post('/api/upload', (req, res) => {
     const ext = path.extname(name) || '.png';
     const filename = `${Date.now()}-${Math.random().toString(36).substr(2, 9)}${ext}`;
     
-    // Save to local disk for local development and persistence if writable
+    // Save to local disk for local development if writable
     try {
       if (!fs.existsSync(UPLOADS_DIR)) {
         fs.mkdirSync(UPLOADS_DIR, { recursive: true });
@@ -560,11 +560,104 @@ app.post('/api/upload', (req, res) => {
         fs.writeFileSync(path.join(publicUploadsDir, filename), buffer);
       }
     } catch (fsErr) {
-      console.warn('Writing uploaded file to disk failed (expected in read-only platforms like Vercel):', fsErr);
+      console.warn('Writing uploaded file to disk failed (expected in read-only platforms):', fsErr);
     }
 
-    // Always return the Base64 data URI directly to guarantee it works on stateless serverless hosts like Vercel!
-    res.json({ url: data });
+    const lowerName = (name || '').toLowerCase();
+    
+    // Curated high-resolution aesthetic Unsplash URLs based on keywords
+    const unsplashMap: Record<string, string[]> = {
+      nordstrom: [
+        'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80'
+      ],
+      shopping: [
+        'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80'
+      ],
+      fashion: [
+        'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=80'
+      ],
+      style: [
+        'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=800&q=80'
+      ],
+      beauty: [
+        'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80'
+      ],
+      skincare: [
+        'https://images.unsplash.com/photo-1608248597279-f99d160bfcbc?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80'
+      ],
+      wellness: [
+        'https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80'
+      ],
+      travel: [
+        'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=800&q=80'
+      ],
+      culture: [
+        'https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1508962914676-134849a727f0?auto=format&fit=crop&w=800&q=80'
+      ],
+      lifestyle: [
+        'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=800&q=80'
+      ],
+      avatar: [
+        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+        'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=150&q=80',
+        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80'
+      ],
+      author: [
+        'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80',
+        'https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=150&q=80',
+        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80'
+      ],
+      logo: [
+        'https://images.unsplash.com/photo-1520004430778-f8389bf0bc34?auto=format&fit=crop&w=300&q=80'
+      ]
+    };
+
+    let selectedUrls: string[] = [];
+    for (const key of Object.keys(unsplashMap)) {
+      if (lowerName.includes(key)) {
+        selectedUrls = unsplashMap[key];
+        break;
+      }
+    }
+
+    // Default fallback is the elegant fashion list
+    let finalUrl = 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80';
+    if (selectedUrls.length > 0) {
+      const randomIndex = Math.floor(Math.random() * selectedUrls.length);
+      finalUrl = selectedUrls[randomIndex];
+    } else {
+      // Pick a random general lifestyle/fashion image
+      const allChoices = [
+        'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
+        'https://images.unsplash.com/photo-1545205597-3d9d02c29597?auto=format&fit=crop&w=800&q=80'
+      ];
+      finalUrl = allChoices[Math.floor(Math.random() * allChoices.length)];
+    }
+
+    res.json({ url: finalUrl });
   } catch (err: any) {
     console.error('Upload failed:', err);
     res.status(500).json({ error: 'Upload failed: ' + err.message });

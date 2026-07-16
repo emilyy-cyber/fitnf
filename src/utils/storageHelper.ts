@@ -116,9 +116,9 @@ const defaultCoupons: Coupon[] = [
 ];
 
 const defaultSettings = {
-  logoText: 'ÉLOQUENCE',
-  logoSubtext: "Journal d'un esprit calme",
-  siteTitle: "ÉLOQUENCE — Journal d'un esprit calme",
+  logoText: 'LIVING WITH SOUFIA',
+  logoSubtext: "Fashion, Lifestyle & Beauty",
+  siteTitle: "LIVING WITH SOUFIA — Fashion, Lifestyle & Beauty",
   logoUrl: ''
 };
 
