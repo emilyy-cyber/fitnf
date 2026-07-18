@@ -75,6 +75,16 @@ function readDb(): Database {
       targetUrl: 'https://www.muji.com',
       category: 'Wellness & Home',
       featured: true
+    },
+    {
+      id: 'store-4',
+      name: 'Mango',
+      slug: 'mango',
+      logo: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=120&q=80',
+      description: 'Mediterranean style clothing, elegant designs, and lightweight natural fabrics for a timeless, modern wardrobe.',
+      targetUrl: 'https://shop.mango.com',
+      category: 'Fashion',
+      featured: true
     }
   ];
 
@@ -444,6 +454,40 @@ function readDb(): Database {
       targetUrl: 'https://www.muji.com',
       verified: true,
       usedCount: 1980
+    },
+    {
+      id: 'coupon-mango-1',
+      storeId: 'store-4',
+      title: 'Get 10% Off Your First Purchase at Mango',
+      discount: '10% OFF',
+      type: 'code',
+      code: 'MANGO10',
+      description: 'Enjoy 10% off your entire first purchase at Mango. Sign up for the newsletter to receive the exclusive discount code.',
+      targetUrl: 'https://shop.mango.com',
+      verified: true,
+      usedCount: 1540
+    },
+    {
+      id: 'coupon-mango-2',
+      storeId: 'store-4',
+      title: 'Up to 50% Off Selected Styles at Mango',
+      discount: 'UP TO 50% OFF',
+      type: 'deal',
+      description: "Discover Mango's seasonal markdown on elegant dresses, warm coats, and minimalist accessories, with up to 50% off select modern styles.",
+      targetUrl: 'https://shop.mango.com',
+      verified: true,
+      usedCount: 2890
+    },
+    {
+      id: 'coupon-mango-3',
+      storeId: 'store-4',
+      title: 'Free Shipping on Mango Orders Over $50',
+      discount: 'FREE SHIP',
+      type: 'deal',
+      description: 'Get free standard delivery on all orders over $50. Free returns within 30 days are included on all purchases.',
+      targetUrl: 'https://shop.mango.com',
+      verified: true,
+      usedCount: 3120
     }
   ];
 
