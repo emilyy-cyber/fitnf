@@ -90,9 +90,9 @@ const defaultCoupons: Coupon[] = [
     usedCount: 4120
   },
   {
-    id: 'coupon-3',
+    id: 'coupon-zara-1',
     storeId: 'store-2',
-    title: 'Get free delivery on your first order',
+    title: 'Get free delivery on your first order at Zara',
     discount: 'FREE SHIP',
     type: 'code',
     code: 'ZARAFREE',
@@ -100,6 +100,120 @@ const defaultCoupons: Coupon[] = [
     targetUrl: 'https://www.zara.com',
     verified: true,
     usedCount: 830
+  },
+  {
+    id: 'coupon-zara-2',
+    storeId: 'store-2',
+    title: 'Flat 15% Off Your First App Order at Zara',
+    discount: '15% OFF',
+    type: 'code',
+    code: 'ZARAAPP15',
+    description: 'Download the official Zara app and enter code at checkout to claim 15% off your initial order.',
+    targetUrl: 'https://www.zara.com',
+    verified: true,
+    usedCount: 2450
+  },
+  {
+    id: 'coupon-zara-3',
+    storeId: 'store-2',
+    title: 'Up to 50% Off Mid-Season Clearance Sale at Zara',
+    discount: 'UP TO 50% OFF',
+    type: 'deal',
+    description: 'Save up to 50% on select outerwear, dresses, knitwear, and accessories during the seasonal markdown event.',
+    targetUrl: 'https://www.zara.com',
+    verified: true,
+    usedCount: 3980
+  },
+  {
+    id: 'coupon-zara-4',
+    storeId: 'store-2',
+    title: 'Free Shipping on Orders Over $70 at Zara',
+    discount: 'FREE SHIP',
+    type: 'deal',
+    description: 'Shop the latest trends and receive automatic free standard shipping on any purchase of $70 or more.',
+    targetUrl: 'https://www.zara.com',
+    verified: true,
+    usedCount: 5120
+  },
+  {
+    id: 'coupon-zara-5',
+    storeId: 'store-2',
+    title: 'Zara Home Collection: 20% Off Select Bedding & Decor',
+    discount: '20% OFF',
+    type: 'deal',
+    description: 'Elevate your living space with minimalist sheets, stone-crafted tableware, and linen duvet covers on special pricing.',
+    targetUrl: 'https://www.zara.com',
+    verified: true,
+    usedCount: 1720
+  },
+  {
+    id: 'coupon-zara-6',
+    storeId: 'store-2',
+    title: 'Exclusive 10% Off Student Discount via Student Beans at Zara',
+    discount: '10% OFF',
+    type: 'code',
+    code: 'ZARASTUDENT10',
+    description: 'Verify your student status with Student Beans to instantly unlock a unique 10% discount code.',
+    targetUrl: 'https://www.zara.com',
+    verified: true,
+    usedCount: 1430
+  },
+  {
+    id: 'coupon-zara-7',
+    storeId: 'store-2',
+    title: 'Zara Military & First Responder Discount: 15% Off',
+    discount: '15% OFF',
+    type: 'code',
+    code: 'ZARAHERO15',
+    description: 'Special thank you offer of 15% off for all active military, veterans, healthcare workers, and first responders. Verification required.',
+    targetUrl: 'https://www.zara.com',
+    verified: true,
+    usedCount: 940
+  },
+  {
+    id: 'coupon-zara-8',
+    storeId: 'store-2',
+    title: 'Save 30% on Timeless Capsule Wardrobe Essentials at Zara',
+    discount: '30% OFF',
+    type: 'deal',
+    description: 'Enjoy up to 30% off high-quality staple shirts, tailored blazers, and classic trousers designed to last.',
+    targetUrl: 'https://www.zara.com',
+    verified: true,
+    usedCount: 2280
+  },
+  {
+    id: 'coupon-zara-9',
+    storeId: 'store-2',
+    title: 'Free In-Store Returns Within 30 Days at Zara',
+    discount: 'FREE RETURN',
+    type: 'deal',
+    description: 'Enjoy ultimate shopping peace of mind with 100% free and easy returns at any local Zara boutique within 30 days.',
+    targetUrl: 'https://www.zara.com',
+    verified: true,
+    usedCount: 4150
+  },
+  {
+    id: 'coupon-zara-10',
+    storeId: 'store-2',
+    title: 'Get 10% Off When You Sign Up For Zara Newsletter',
+    discount: '10% OFF',
+    type: 'code',
+    code: 'ZARAJOIN10',
+    description: 'Subscribe to the Zara newsletter to receive the latest arrival notifications and a 10% discount code for your next purchase.',
+    targetUrl: 'https://www.zara.com',
+    verified: true,
+    usedCount: 3100
+  },
+  {
+    id: 'coupon-zara-11',
+    storeId: 'store-2',
+    title: 'Zara Premium Leather Goods: 25% Off Select Boots & Bags',
+    discount: '25% OFF',
+    type: 'deal',
+    description: 'Upgrade your footwear and accessory game with 25% off high-quality real leather boots, loafers, and shoulder bags.',
+    targetUrl: 'https://www.zara.com',
+    verified: true,
+    usedCount: 1650
   },
   {
     id: 'coupon-4',
