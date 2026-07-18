@@ -352,6 +352,98 @@ function readDb(): Database {
       targetUrl: 'https://www.muji.com',
       verified: true,
       usedCount: 3042
+    },
+    {
+      id: 'coupon-muji-1',
+      storeId: 'store-3',
+      title: 'Get 10% Off Your First Purchase at Muji',
+      discount: '10% OFF',
+      type: 'code',
+      code: 'MUJISTART',
+      description: 'Welcome to Muji. Sign up for our newsletter or create an account to unlock a flat 10% discount code.',
+      targetUrl: 'https://www.muji.com',
+      verified: true,
+      usedCount: 1420
+    },
+    {
+      id: 'coupon-muji-2',
+      storeId: 'store-3',
+      title: 'Free Standard Delivery on Orders Over $100',
+      discount: 'FREE SHIP',
+      type: 'deal',
+      description: 'Shop minimalist storage drawers, comfort sandals, and linen wear. Automatic free shipping on all orders over $100.',
+      targetUrl: 'https://www.muji.com',
+      verified: true,
+      usedCount: 2310
+    },
+    {
+      id: 'coupon-muji-3',
+      storeId: 'store-3',
+      title: 'Muji Stationery: Buy 5, Get 1 Free on Smooth Writing Gel Pens',
+      discount: 'B5G1 FREE',
+      type: 'code',
+      code: 'MUJIPENS',
+      description: 'Indulge in our iconic, super-smooth gel ink pens. Put 6 in your cart and apply code to get the 6th pen entirely free.',
+      targetUrl: 'https://www.muji.com',
+      verified: true,
+      usedCount: 3120
+    },
+    {
+      id: 'coupon-muji-4',
+      storeId: 'store-3',
+      title: 'Up to 30% Off Modular Acrylic & Polypropylene Organizers',
+      discount: '30% OFF',
+      type: 'deal',
+      description: "Transform your home with Muji's iconic stackable containers. Enjoy up to 30% off selected acrylic drawers and polypropylene file boxes.",
+      targetUrl: 'https://www.muji.com',
+      verified: true,
+      usedCount: 1890
+    },
+    {
+      id: 'coupon-muji-5',
+      storeId: 'store-3',
+      title: 'Save $15 on Ultrasonic Aroma Diffusers & Essential Oils',
+      discount: '$15 OFF',
+      type: 'code',
+      code: 'MUJIAROMA',
+      description: 'Fill your space with relaxing mist. Take $15 off any full-sized ultrasonic aroma diffuser when purchased with any two essential oils.',
+      targetUrl: 'https://www.muji.com',
+      verified: true,
+      usedCount: 1150
+    },
+    {
+      id: 'coupon-muji-6',
+      storeId: 'store-3',
+      title: '20% Off Sustainable Linen & Organic Cotton Apparel at Muji',
+      discount: '20% OFF',
+      type: 'deal',
+      description: 'Refresh your closet with light, breathable shirts, trousers, and dresses made of 100% organic flax and cotton.',
+      targetUrl: 'https://www.muji.com',
+      verified: true,
+      usedCount: 2540
+    },
+    {
+      id: 'coupon-muji-7',
+      storeId: 'store-3',
+      title: 'Student & Educator Discount: Flat 10% Off All Purchases',
+      discount: '10% OFF',
+      type: 'code',
+      code: 'MUJIEDU10',
+      description: 'Supporting learning and structure. Students and teachers save a flat 10% off their order after verifying educational status.',
+      targetUrl: 'https://www.muji.com',
+      verified: true,
+      usedCount: 1670
+    },
+    {
+      id: 'coupon-muji-8',
+      storeId: 'store-3',
+      title: 'Muji Bedding Event: 15% Off Organic Cotton Duvet Covers',
+      discount: '15% OFF',
+      type: 'deal',
+      description: 'Indulge in unmatched softness. Take 15% off ultra-soft jersey and washed organic cotton bedding covers during this exclusive seasonal deal.',
+      targetUrl: 'https://www.muji.com',
+      verified: true,
+      usedCount: 1980
     }
   ];
 
