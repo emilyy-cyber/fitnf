@@ -373,14 +373,42 @@ function readDb(): Database {
   }
 
   let changed = false;
+  if (!db.articles) {
+    db.articles = defaultArticles;
+    changed = true;
+  } else {
+    defaultArticles.forEach(def => {
+      if (!db.articles.some((a: any) => a.id === def.id)) {
+        db.articles.push(def);
+        changed = true;
+      }
+    });
+  }
+
   if (!db.stores) {
     db.stores = defaultStores;
     changed = true;
+  } else {
+    defaultStores.forEach(def => {
+      if (!db.stores.some((s: any) => s.id === def.id)) {
+        db.stores.push(def);
+        changed = true;
+      }
+    });
   }
+
   if (!db.coupons) {
     db.coupons = defaultCoupons;
     changed = true;
+  } else {
+    defaultCoupons.forEach(def => {
+      if (!db.coupons.some((c: any) => c.id === def.id)) {
+        db.coupons.push(def);
+        changed = true;
+      }
+    });
   }
+
   if (changed) {
     writeDb(db);
   }

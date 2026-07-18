@@ -264,7 +264,19 @@ export const storageService = {
     }
     const local = localStorage.getItem('eloquence_articles');
     if (local) {
-      return migrateUploads(JSON.parse(local));
+      const parsed = migrateUploads(JSON.parse(local));
+      let updated = [...parsed];
+      let merged = false;
+      initialArticles.forEach(def => {
+        if (!updated.some(a => a.id === def.id)) {
+          updated.push(def);
+          merged = true;
+        }
+      });
+      if (merged) {
+        localStorage.setItem('eloquence_articles', JSON.stringify(updated));
+      }
+      return updated;
     }
     const migratedInitial = migrateUploads(initialArticles);
     localStorage.setItem('eloquence_articles', JSON.stringify(migratedInitial));
@@ -447,7 +459,19 @@ export const storageService = {
     }
     const local = localStorage.getItem('eloquence_stores');
     if (local) {
-      return migrateUploads(JSON.parse(local));
+      const parsed = migrateUploads(JSON.parse(local));
+      let updated = [...parsed];
+      let merged = false;
+      defaultStores.forEach(def => {
+        if (!updated.some(s => s.id === def.id)) {
+          updated.push(def);
+          merged = true;
+        }
+      });
+      if (merged) {
+        localStorage.setItem('eloquence_stores', JSON.stringify(updated));
+      }
+      return updated;
     }
     const migratedStores = migrateUploads(defaultStores);
     localStorage.setItem('eloquence_stores', JSON.stringify(migratedStores));
@@ -530,7 +554,19 @@ export const storageService = {
     }
     const local = localStorage.getItem('eloquence_coupons');
     if (local) {
-      return migrateUploads(JSON.parse(local));
+      const parsed = migrateUploads(JSON.parse(local));
+      let updated = [...parsed];
+      let merged = false;
+      defaultCoupons.forEach(def => {
+        if (!updated.some(c => c.id === def.id)) {
+          updated.push(def);
+          merged = true;
+        }
+      });
+      if (merged) {
+        localStorage.setItem('eloquence_coupons', JSON.stringify(updated));
+      }
+      return updated;
     }
     const migratedCoupons = migrateUploads(defaultCoupons);
     localStorage.setItem('eloquence_coupons', JSON.stringify(migratedCoupons));
