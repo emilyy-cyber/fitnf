@@ -125,9 +125,15 @@ export default function App() {
       if (path === '/admin') {
         setIsAdminOpen(true);
         setActiveArticleId(null);
+      } else if (path.startsWith('/article/')) {
+        setIsAdminOpen(false);
+        const articleId = decodeURIComponent(path.substring('/article/'.length));
+        setActiveArticleId(articleId);
       } else {
         setIsAdminOpen(false);
         if (path === '/stores' || path.startsWith('/store/')) {
+          setActiveArticleId(null);
+        } else {
           setActiveArticleId(null);
         }
       }
@@ -148,9 +154,15 @@ export default function App() {
     if (path === '/admin') {
       setIsAdminOpen(true);
       setActiveArticleId(null);
+    } else if (path.startsWith('/article/')) {
+      setIsAdminOpen(false);
+      const articleId = decodeURIComponent(path.substring('/article/'.length));
+      setActiveArticleId(articleId);
     } else {
       setIsAdminOpen(false);
       if (path === '/stores' || path.startsWith('/store/')) {
+        setActiveArticleId(null);
+      } else {
         setActiveArticleId(null);
       }
     }
@@ -192,17 +204,88 @@ export default function App() {
 
   // Handle viewing specific article
   const handleArticleClick = (id: string) => {
-    setActiveArticleId(id);
-    navigateTo('/');
+    const article = articles.find(a => a.id === id || a.id.toLowerCase() === id.toLowerCase());
+    const targetId = article ? article.id : id;
+    setActiveArticleId(targetId);
     setSearchQuery('');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    navigateTo(`/article/${encodeURIComponent(targetId)}`);
   };
 
   // Find the current active article if reading
   const activeArticle = useMemo(() => {
     if (!activeArticleId) return null;
-    return articles.find(a => a.id === activeArticleId) || null;
+    return (
+      articles.find(
+        a => a.id === activeArticleId || a.id.toLowerCase() === activeArticleId.toLowerCase()
+      ) || null
+    );
   }, [activeArticleId, articles]);
+
+  // SEO Dynamic Meta Tags Synchronization
+  useEffect(() => {
+    if (activeArticle && currentPath.startsWith('/article/')) {
+      const fullTitle = `${activeArticle.title} — ${settings.siteTitle || 'LIVING WITH SOUFIA'}`;
+      document.title = fullTitle;
+
+      // Meta description
+      let metaDesc = document.querySelector('meta[name="description"]');
+      if (!metaDesc) {
+        metaDesc = document.createElement('meta');
+        metaDesc.setAttribute('name', 'description');
+        document.head.appendChild(metaDesc);
+      }
+      metaDesc.setAttribute('content', activeArticle.summary || activeArticle.subtitle || '');
+
+      // Open Graph Title
+      let ogTitle = document.querySelector('meta[property="og:title"]');
+      if (!ogTitle) {
+        ogTitle = document.createElement('meta');
+        ogTitle.setAttribute('property', 'og:title');
+        document.head.appendChild(ogTitle);
+      }
+      ogTitle.setAttribute('content', activeArticle.title);
+
+      // Open Graph Description
+      let ogDesc = document.querySelector('meta[property="og:description"]');
+      if (!ogDesc) {
+        ogDesc = document.createElement('meta');
+        ogDesc.setAttribute('property', 'og:description');
+        document.head.appendChild(ogDesc);
+      }
+      ogDesc.setAttribute('content', activeArticle.summary || '');
+
+      // Open Graph Image
+      let ogImage = document.querySelector('meta[property="og:image"]');
+      if (!ogImage) {
+        ogImage = document.createElement('meta');
+        ogImage.setAttribute('property', 'og:image');
+        document.head.appendChild(ogImage);
+      }
+      ogImage.setAttribute('content', activeArticle.image || '');
+
+      // Open Graph URL
+      let ogUrl = document.querySelector('meta[property="og:url"]');
+      if (!ogUrl) {
+        ogUrl = document.createElement('meta');
+        ogUrl.setAttribute('property', 'og:url');
+        document.head.appendChild(ogUrl);
+      }
+      ogUrl.setAttribute('content', window.location.href);
+
+      // Canonical link
+      let canonical = document.querySelector('link[rel="canonical"]');
+      if (!canonical) {
+        canonical = document.createElement('link');
+        canonical.setAttribute('rel', 'canonical');
+        document.head.appendChild(canonical);
+      }
+      canonical.setAttribute('href', window.location.href);
+    } else if (!isAdminOpen && !currentPath.startsWith('/store')) {
+      if (settings.siteTitle) {
+        document.title = settings.siteTitle;
+      }
+    }
+  }, [activeArticle, currentPath, settings, isAdminOpen]);
 
   // Resolve related articles for reader view
   const relatedArticles = useMemo(() => {
@@ -276,7 +359,7 @@ export default function App() {
           setActiveArticleId(null);
           navigateTo('/');
         }}
-        isReadingArticle={activeArticleId !== null}
+        isReadingArticle={currentPath.startsWith('/article/')}
         categories={categories}
         isAdminOpen={isAdminOpen}
         onToggleAdmin={isAuthenticated ? () => {
@@ -378,24 +461,48 @@ export default function App() {
                 );
               })()}
             </motion.div>
-          ) : activeArticle ? (
-            /* Immersive Reader Detail View */
+          ) : currentPath.startsWith('/article/') ? (
+            /* Immersive Reader Detail View with URL Routing */
             <motion.div
-              key={`article-${activeArticle.id}`}
+              key={`article-${currentPath}`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <ArticleDetail
-                article={activeArticle}
-                relatedArticles={relatedArticles}
-                onBack={() => setActiveArticleId(null)}
-                onArticleClick={handleArticleClick}
-                isBookmarked={savedArticleIds.includes(activeArticle.id)}
-                onToggleBookmark={handleToggleBookmark}
-                onOpenAssistant={() => setIsAssistantOpen(true)}
-              />
+              {activeArticle ? (
+                <ArticleDetail
+                  article={activeArticle}
+                  relatedArticles={relatedArticles}
+                  onBack={() => {
+                    setActiveArticleId(null);
+                    navigateTo('/');
+                  }}
+                  onArticleClick={handleArticleClick}
+                  isBookmarked={savedArticleIds.includes(activeArticle.id)}
+                  onToggleBookmark={handleToggleBookmark}
+                  onOpenAssistant={() => setIsAssistantOpen(true)}
+                />
+              ) : (
+                <div className="pt-[140px] pb-24 text-center max-w-xl mx-auto px-6">
+                  <div className="py-20 bg-theme-tertiary border border-theme-border p-8 rounded-none flex flex-col items-center gap-4">
+                    <BookOpen className="w-10 h-10 text-accent/60" />
+                    <h3 className="font-serif text-2xl text-theme-text uppercase font-bold">Article Not Found</h3>
+                    <p className="text-xs font-sans text-theme-text-sub leading-relaxed">
+                      The editorial article you are looking for does not exist or has been relocated.
+                    </p>
+                    <button
+                      onClick={() => {
+                        setActiveArticleId(null);
+                        navigateTo('/');
+                      }}
+                      className="mt-2 text-xs font-mono uppercase tracking-widest bg-theme-text text-theme-bg font-bold px-6 py-3 hover:bg-accent hover:text-white transition-all cursor-pointer"
+                    >
+                      Back to Magazine
+                    </button>
+                  </div>
+                </div>
+              )}
             </motion.div>
           ) : activeCategory !== 'All' || searchQuery !== '' ? (
             /* Dynamic Category / Search Filter View */
