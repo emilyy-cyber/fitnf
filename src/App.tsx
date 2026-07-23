@@ -15,6 +15,27 @@ import StoreDetail from './components/StoreDetail';
 import { Sparkles, Compass, BookOpen, Clock, Heart, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
+// Helper functions for category and article slug routing
+const getCategorySlug = (category: string): string => {
+  if (!category || category.toLowerCase() === 'all') return '';
+  return category
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+};
+
+const findCategoryBySlug = (slug: string, availableCategories: string[]): string | null => {
+  if (!slug) return 'All';
+  const normSlug = slug.toLowerCase().trim();
+  const found = availableCategories.find(cat => getCategorySlug(cat) === normSlug);
+  if (found) return found;
+  const defaults = ['Wellness', 'Fashion', 'Travel', 'Culture', 'Lifestyle'];
+  const defaultFound = defaults.find(cat => getCategorySlug(cat) === normSlug);
+  if (defaultFound) return defaultFound;
+  return null;
+};
+
 export default function App() {
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -115,58 +136,131 @@ export default function App() {
     fetchCoupons();
   }, []);
 
-  // URL routing state and synchronization for /admin
+  // URL routing state and synchronization for categories, articles, admin, stores
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
+
+  const parseAndApplyRoute = (path: string, currentArticles: Article[], currentCategories: string[]) => {
+    setCurrentPath(path);
+    const cleanPath = path.replace(/\/+$/, '') || '/';
+    const parts = cleanPath.split('/').filter(Boolean);
+
+    if (parts.length === 0) {
+      setIsAdminOpen(false);
+      setActiveArticleId(null);
+      setActiveCategory('All');
+      return;
+    }
+
+    if (parts[0] === 'admin') {
+      setIsAdminOpen(true);
+      setActiveArticleId(null);
+      return;
+    }
+
+    if (parts[0] === 'stores' || parts[0] === 'store') {
+      setIsAdminOpen(false);
+      setActiveArticleId(null);
+      return;
+    }
+
+    if (parts.length === 2) {
+      const [first, second] = parts;
+      const targetArticleId = decodeURIComponent(second);
+
+      // Check if second part matches an article
+      const foundArticle = currentArticles.find(
+        a => a.id === targetArticleId || a.id.toLowerCase() === targetArticleId.toLowerCase()
+      );
+
+      if (foundArticle) {
+        setIsAdminOpen(false);
+        setActiveArticleId(foundArticle.id);
+        if (foundArticle.category) {
+          setActiveCategory(foundArticle.category);
+        }
+        return;
+      }
+
+      if (first === 'article') {
+        setIsAdminOpen(false);
+        setActiveArticleId(targetArticleId);
+        return;
+      }
+
+      // Set target article ID while waiting for articles or as fallback
+      setIsAdminOpen(false);
+      setActiveArticleId(targetArticleId);
+
+      const catMatch = findCategoryBySlug(first, currentCategories);
+      if (catMatch) {
+        setActiveCategory(catMatch);
+      }
+      return;
+    }
+
+    if (parts.length === 1) {
+      const slug = parts[0].toLowerCase();
+
+      // Check if slug matches a category
+      const catMatch = findCategoryBySlug(slug, currentCategories);
+      if (catMatch) {
+        setIsAdminOpen(false);
+        setActiveArticleId(null);
+        setActiveCategory(catMatch);
+        return;
+      }
+
+      // Check if slug matches an article ID directly
+      const foundArticle = currentArticles.find(
+        a => a.id === slug || a.id.toLowerCase() === slug
+      );
+
+      if (foundArticle) {
+        setIsAdminOpen(false);
+        setActiveArticleId(foundArticle.id);
+        if (foundArticle.category) {
+          setActiveCategory(foundArticle.category);
+        }
+        return;
+      }
+
+      // Default fallback
+      setIsAdminOpen(false);
+      setActiveArticleId(null);
+      setActiveCategory('All');
+    }
+  };
 
   useEffect(() => {
     const handleLocationChange = () => {
-      const path = window.location.pathname;
-      setCurrentPath(path);
-      if (path === '/admin') {
-        setIsAdminOpen(true);
-        setActiveArticleId(null);
-      } else if (path.startsWith('/article/')) {
-        setIsAdminOpen(false);
-        const articleId = decodeURIComponent(path.substring('/article/'.length));
-        setActiveArticleId(articleId);
-      } else {
-        setIsAdminOpen(false);
-        if (path === '/stores' || path.startsWith('/store/')) {
-          setActiveArticleId(null);
-        } else {
-          setActiveArticleId(null);
-        }
-      }
+      parseAndApplyRoute(window.location.pathname, articles, categories);
     };
 
     window.addEventListener('popstate', handleLocationChange);
-    // Trigger on mount
     handleLocationChange();
 
     return () => {
       window.removeEventListener('popstate', handleLocationChange);
     };
-  }, []);
+  }, [articles, categories]);
 
   const navigateTo = (path: string) => {
     window.history.pushState({}, '', path);
-    setCurrentPath(path);
-    if (path === '/admin') {
-      setIsAdminOpen(true);
-      setActiveArticleId(null);
-    } else if (path.startsWith('/article/')) {
-      setIsAdminOpen(false);
-      const articleId = decodeURIComponent(path.substring('/article/'.length));
-      setActiveArticleId(articleId);
-    } else {
-      setIsAdminOpen(false);
-      if (path === '/stores' || path.startsWith('/store/')) {
-        setActiveArticleId(null);
-      } else {
-        setActiveArticleId(null);
-      }
-    }
+    parseAndApplyRoute(path, articles, categories);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSelectCategory = (category: string) => {
+    setActiveCategory(category);
+    setSearchQuery('');
+    setActiveArticleId(null);
+    setIsAdminOpen(false);
+    const slug = getCategorySlug(category);
+    if (slug) {
+      navigateTo(`/${slug}`);
+    } else {
+      navigateTo('/');
+    }
   };
 
   // Initialize bookmarks from localStorage
@@ -202,13 +296,14 @@ export default function App() {
     return articles.filter(a => savedArticleIds.includes(a.id));
   }, [savedArticleIds, articles]);
 
-  // Handle viewing specific article
+  // Handle viewing specific article with category slug URL
   const handleArticleClick = (id: string) => {
     const article = articles.find(a => a.id === id || a.id.toLowerCase() === id.toLowerCase());
     const targetId = article ? article.id : id;
+    const catSlug = article ? getCategorySlug(article.category) || 'article' : 'article';
     setActiveArticleId(targetId);
     setSearchQuery('');
-    navigateTo(`/article/${encodeURIComponent(targetId)}`);
+    navigateTo(`/${catSlug}/${encodeURIComponent(targetId)}`);
   };
 
   // Find the current active article if reading
@@ -223,7 +318,9 @@ export default function App() {
 
   // SEO Dynamic Meta Tags Synchronization
   useEffect(() => {
-    if (activeArticle && currentPath.startsWith('/article/')) {
+    if (activeArticle) {
+      const catSlug = getCategorySlug(activeArticle.category) || 'article';
+      const canonicalUrl = `${window.location.origin}/${catSlug}/${encodeURIComponent(activeArticle.id)}`;
       const fullTitle = `${activeArticle.title} — ${settings.siteTitle || 'LIVING WITH SOUFIA'}`;
       document.title = fullTitle;
 
@@ -270,7 +367,7 @@ export default function App() {
         ogUrl.setAttribute('property', 'og:url');
         document.head.appendChild(ogUrl);
       }
-      ogUrl.setAttribute('content', window.location.href);
+      ogUrl.setAttribute('content', canonicalUrl);
 
       // Canonical link
       let canonical = document.querySelector('link[rel="canonical"]');
@@ -279,13 +376,34 @@ export default function App() {
         canonical.setAttribute('rel', 'canonical');
         document.head.appendChild(canonical);
       }
-      canonical.setAttribute('href', window.location.href);
+      canonical.setAttribute('href', canonicalUrl);
+    } else if (activeCategory && activeCategory !== 'All') {
+      const catSlug = getCategorySlug(activeCategory);
+      const canonicalUrl = `${window.location.origin}/${catSlug}`;
+      const fullTitle = `${activeCategory} — ${settings.siteTitle || 'LIVING WITH SOUFIA'}`;
+      document.title = fullTitle;
+
+      let metaDesc = document.querySelector('meta[name="description"]');
+      if (!metaDesc) {
+        metaDesc = document.createElement('meta');
+        metaDesc.setAttribute('name', 'description');
+        document.head.appendChild(metaDesc);
+      }
+      metaDesc.setAttribute('content', `Explore curated ${activeCategory} articles, essays, and editorial edits on LIVING WITH SOUFIA.`);
+
+      let canonical = document.querySelector('link[rel="canonical"]');
+      if (!canonical) {
+        canonical = document.createElement('link');
+        canonical.setAttribute('rel', 'canonical');
+        document.head.appendChild(canonical);
+      }
+      canonical.setAttribute('href', canonicalUrl);
     } else if (!isAdminOpen && !currentPath.startsWith('/store')) {
       if (settings.siteTitle) {
         document.title = settings.siteTitle;
       }
     }
-  }, [activeArticle, currentPath, settings, isAdminOpen]);
+  }, [activeArticle, activeCategory, settings, isAdminOpen, currentPath]);
 
   // Resolve related articles for reader view
   const relatedArticles = useMemo(() => {
@@ -350,16 +468,20 @@ export default function App() {
       {/* Primary Top Header */}
       <Header
         activeCategory={activeCategory}
-        setActiveCategory={setActiveCategory}
+        setActiveCategory={handleSelectCategory}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
         savedArticles={savedArticles}
         onArticleClick={handleArticleClick}
         onBackToHome={() => {
           setActiveArticleId(null);
-          navigateTo('/');
+          if (activeCategory && activeCategory !== 'All') {
+            navigateTo(`/${getCategorySlug(activeCategory)}`);
+          } else {
+            navigateTo('/');
+          }
         }}
-        isReadingArticle={currentPath.startsWith('/article/')}
+        isReadingArticle={activeArticleId !== null}
         categories={categories}
         isAdminOpen={isAdminOpen}
         onToggleAdmin={isAuthenticated ? () => {
@@ -461,10 +583,10 @@ export default function App() {
                 );
               })()}
             </motion.div>
-          ) : currentPath.startsWith('/article/') ? (
-            /* Immersive Reader Detail View with URL Routing */
+          ) : activeArticleId !== null ? (
+            /* Immersive Reader Detail View with Category Slug URL Routing */
             <motion.div
-              key={`article-${currentPath}`}
+              key={`article-${activeArticleId}-${currentPath}`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -476,7 +598,11 @@ export default function App() {
                   relatedArticles={relatedArticles}
                   onBack={() => {
                     setActiveArticleId(null);
-                    navigateTo('/');
+                    if (activeCategory && activeCategory !== 'All') {
+                      navigateTo(`/${getCategorySlug(activeCategory)}`);
+                    } else {
+                      navigateTo('/');
+                    }
                   }}
                   onArticleClick={handleArticleClick}
                   isBookmarked={savedArticleIds.includes(activeArticle.id)}

@@ -72,7 +72,6 @@ export default function Header({
   const handleCategorySelect = (category: string) => {
     setActiveCategory(category);
     setMobileMenuOpen(false);
-    if (onBackToHome) onBackToHome();
   };
 
   return (
@@ -102,7 +101,7 @@ export default function Header({
                 {onNavigateToStores && (
                   <button
                     onClick={onNavigateToStores}
-                    className={`font-mono text-[10px] uppercase tracking-widest transition-all relative py-1 cursor-pointer ${
+                    className={`font-mono text-[10px] uppercase tracking-widest transition-all relative py-1 cursor-pointer focus:outline-none select-none ${
                       currentPath === '/stores' || currentPath.startsWith('/store/')
                         ? 'text-accent font-bold' 
                         : 'text-theme-text hover:text-accent font-medium'
@@ -123,7 +122,7 @@ export default function Header({
                   <button
                     key={cat}
                     onClick={() => handleCategorySelect(cat)}
-                    className={`font-mono text-[10px] uppercase tracking-widest transition-all relative py-1 cursor-pointer ${
+                    className={`font-mono text-[10px] uppercase tracking-widest transition-all relative py-1 cursor-pointer focus:outline-none select-none ${
                       activeCategory === cat 
                         ? 'text-theme-text font-semibold' 
                         : 'text-theme-text-muted hover:text-theme-text'
@@ -191,7 +190,7 @@ export default function Header({
                 <button
                   key={cat}
                   onClick={() => handleCategorySelect(cat)}
-                  className={`font-mono text-[10px] uppercase tracking-widest transition-all relative py-1 cursor-pointer ${
+                  className={`font-mono text-[10px] uppercase tracking-widest transition-all relative py-1 cursor-pointer focus:outline-none select-none ${
                     activeCategory === cat 
                       ? 'text-theme-text font-semibold' 
                       : 'text-theme-text-muted hover:text-theme-text'
