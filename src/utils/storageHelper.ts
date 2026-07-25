@@ -72,6 +72,16 @@ const defaultStores: Store[] = [
     targetUrl: 'https://shop.mango.com',
     category: 'Fashion',
     featured: true
+  },
+  {
+    id: 'store-5',
+    name: 'Walmart',
+    slug: 'walmart',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Walmart_logo.svg/1024px-Walmart_logo.svg.png',
+    description: 'Everyday low prices on electronics, home goods, fashion, beauty, groceries, and seasonal rollbacks.',
+    targetUrl: 'https://linktr.ee/w34mt',
+    category: 'Department & Home',
+    featured: true
   }
 ];
 
@@ -362,6 +372,191 @@ const defaultCoupons: Coupon[] = [
     targetUrl: 'https://shop.mango.com',
     verified: true,
     usedCount: 3120
+  },
+  {
+    id: 'coupon-walmart-top-1',
+    storeId: 'store-5',
+    title: '30% Off Your Walmart Order',
+    discount: '30% OFF',
+    type: 'code',
+    code: '30WMOFF',
+    description: 'Get an exclusive 30% discount on your entire Walmart order at checkout.',
+    targetUrl: 'https://linktr.ee/w34mt',
+    verified: true,
+    usedCount: 28450
+  },
+  {
+    id: 'coupon-walmart-top-2',
+    storeId: 'store-5',
+    title: '20% Off Sitewide Coupon at Walmart',
+    discount: '20% OFF',
+    type: 'code',
+    code: 'TIMEBACK',
+    description: 'Enjoy 20% off sitewide on eligible items including tech, home, and fashion.',
+    targetUrl: 'https://linktr.ee/w34mt',
+    verified: true,
+    usedCount: 22100
+  },
+  {
+    id: 'coupon-walmart-top-3',
+    storeId: 'store-5',
+    title: '25% Off Your Purchase',
+    discount: '25% OFF',
+    type: 'code',
+    code: 'POTION25',
+    description: 'Apply promo code at checkout to receive 25% off qualifying online purchases.',
+    targetUrl: 'https://linktr.ee/w34mt',
+    verified: true,
+    usedCount: 19800
+  },
+  {
+    id: 'coupon-walmart-top-4',
+    storeId: 'store-5',
+    title: 'Walmart Back to School Sale: Up to 50% Off',
+    discount: 'UP TO 50% OFF',
+    type: 'deal',
+    description: 'Save up to 50% on school supplies, backpacks, laptops, tech, and dorm essentials.',
+    targetUrl: 'https://linktr.ee/w34mt',
+    verified: true,
+    usedCount: 31200
+  },
+  {
+    id: 'coupon-walmart-2',
+    storeId: 'store-5',
+    title: '$20 Off Your First 3 Grocery & Household Orders ($10 Off Each)',
+    discount: '$20 OFF',
+    type: 'code',
+    code: 'TRIPLE10',
+    description: 'Save $10 on each of your first 3 pickup or delivery orders of $50 or more. Valid for new Walmart online customers.',
+    targetUrl: 'https://linktr.ee/w34mt',
+    verified: true,
+    usedCount: 9830
+  },
+  {
+    id: 'coupon-walmart-3',
+    storeId: 'store-5',
+    title: '$15 Off $50+ Grocery, Pantry & Household Essentials',
+    discount: '$15 OFF',
+    type: 'code',
+    code: 'PAYPAL15',
+    description: 'Get an extra $15 discount when spending $50 or more on fresh produce, groceries, and cleaning supplies.',
+    targetUrl: 'https://linktr.ee/w34mt',
+    verified: true,
+    usedCount: 11400
+  },
+  {
+    id: 'coupon-walmart-10',
+    storeId: 'store-5',
+    title: '$10 Off Fresh Groceries & Pantry Pickup ($50+ Order)',
+    discount: '$10 OFF',
+    type: 'code',
+    code: 'WOWFRESH',
+    description: 'Save $10 on your first grocery pickup or express delivery order when spending $50 or more online.',
+    targetUrl: 'https://linktr.ee/w34mt',
+    verified: true,
+    usedCount: 10420
+  },
+  {
+    id: 'coupon-walmart-9',
+    storeId: 'store-5',
+    title: '$10 Off $35+ Beauty, Skincare & Personal Care Orders',
+    discount: '$10 OFF',
+    type: 'code',
+    code: 'GLOW10',
+    description: 'Take $10 off your $35+ purchase of cosmetics, hair tools, skincare products, and body care essentials.',
+    targetUrl: 'https://linktr.ee/w34mt',
+    verified: true,
+    usedCount: 6150
+  },
+  {
+    id: 'coupon-walmart-7',
+    storeId: 'store-5',
+    title: 'Extra 20% Off Selected Kitchen Appliances & Cookware',
+    discount: '20% OFF',
+    type: 'code',
+    code: 'HOME20',
+    description: 'Apply coupon code at checkout for an additional 20% discount on air fryers, blender sets, and cookware.',
+    targetUrl: 'https://linktr.ee/w34mt',
+    verified: true,
+    usedCount: 5210
+  },
+  {
+    id: 'coupon-walmart-11',
+    storeId: 'store-5',
+    title: '$15 Off Goodyear, Michelin & Goodyear Tires or Auto Service',
+    discount: '$15 OFF',
+    type: 'code',
+    code: 'TIRES15',
+    description: 'Get $15 off when purchasing a set of 4 tires or scheduling installation at Walmart Auto Care Centers.',
+    targetUrl: 'https://linktr.ee/w34mt',
+    verified: true,
+    usedCount: 4320
+  },
+  {
+    id: 'coupon-walmart-1',
+    storeId: 'store-5',
+    title: 'Up to 50% Off Walmart Rollbacks, Tech, Patio & Seasonal Clearance',
+    discount: 'UP TO 50% OFF',
+    type: 'deal',
+    description: 'Save up to 50% on 4K smart TVs, home appliances, patio sets, apparel, and cookware during the latest Walmart Rollback event.',
+    targetUrl: 'https://linktr.ee/w34mt',
+    verified: true,
+    usedCount: 14250
+  },
+  {
+    id: 'coupon-walmart-4',
+    storeId: 'store-5',
+    title: 'Free 30-Day Trial of Walmart+ Membership (Free Shipping & Delivery)',
+    discount: 'FREE TRIAL',
+    type: 'deal',
+    description: 'Enjoy 30 days of free store delivery, free shipping with no order minimums, Paramount+, and member fuel discounts.',
+    targetUrl: 'https://linktr.ee/w34mt',
+    verified: true,
+    usedCount: 16200
+  },
+  {
+    id: 'coupon-walmart-5',
+    storeId: 'store-5',
+    title: 'Up to 40% Off Laptops, Headphones, iPads & Smart Home Tech',
+    discount: 'UP TO 40% OFF',
+    type: 'deal',
+    description: 'Discover massive savings on Apple, Samsung, Sony, Bose, and Lenovo laptops, tablets, and smart audio.',
+    targetUrl: 'https://linktr.ee/w34mt',
+    verified: true,
+    usedCount: 8340
+  },
+  {
+    id: 'coupon-walmart-6',
+    storeId: 'store-5',
+    title: 'Free Standard & 2-Day Shipping on Orders $35 or More',
+    discount: 'FREE SHIP',
+    type: 'deal',
+    description: 'Receive automatic fast 2-day delivery on eligible items when your order total reaches $35 or more.',
+    targetUrl: 'https://linktr.ee/w34mt',
+    verified: true,
+    usedCount: 21400
+  },
+  {
+    id: 'coupon-walmart-8',
+    storeId: 'store-5',
+    title: 'Up to 60% Off Fashion, Apparel, Denim & Footwear Clearance',
+    discount: 'UP TO 60% OFF',
+    type: 'deal',
+    description: 'Save big on trending men’s, women’s, and kids’ apparel, activewear, sneakers, and loungewear on sale.',
+    targetUrl: 'https://linktr.ee/w34mt',
+    verified: true,
+    usedCount: 7890
+  },
+  {
+    id: 'coupon-walmart-12',
+    storeId: 'store-5',
+    title: 'Up to 30% Off Toys, LEGO Sets, Board Games & Gaming Consoles',
+    discount: 'UP TO 30% OFF',
+    type: 'deal',
+    description: 'Enjoy exclusive discounts on PlayStation, Nintendo Switch, LEGO, Barbie, and top outdoor toys.',
+    targetUrl: 'https://linktr.ee/w34mt',
+    verified: true,
+    usedCount: 8750
   }
 ];
 

@@ -14,8 +14,22 @@ export default function StoreDetail({ store, coupons, onBackToStores, onUseCoupo
   const [copiedCoupon, setCopiedCoupon] = useState<Coupon | null>(null);
   const [showNotification, setShowNotification] = useState(false);
 
-  // Filter coupons for this specific store
-  const storeCoupons = coupons.filter(c => c.storeId === store.id);
+  // Filter coupons for this specific store & sort top offers first, then promo codes, then deals
+  const topIds = ['coupon-walmart-top-1', 'coupon-walmart-top-2', 'coupon-walmart-top-3', 'coupon-walmart-top-4'];
+  const storeCoupons = coupons
+    .filter(c => c.storeId === store.id)
+    .sort((a, b) => {
+      const aTopIndex = topIds.indexOf(a.id);
+      const bTopIndex = topIds.indexOf(b.id);
+      if (aTopIndex !== -1 && bTopIndex !== -1) return aTopIndex - bTopIndex;
+      if (aTopIndex !== -1) return -1;
+      if (bTopIndex !== -1) return 1;
+
+      if (a.type === 'code' && b.type !== 'code') return -1;
+      if (a.type !== 'code' && b.type === 'code') return 1;
+
+      return 0;
+    });
 
   const handleGetDealOrCode = async (coupon: Coupon) => {
     // 1. Open store link in a new tab

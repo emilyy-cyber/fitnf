@@ -13,15 +13,18 @@ export default function StoresList({ stores, coupons, onStoreClick }: StoresList
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  // Categories list from stores
-  const categories = ['All', ...Array.from(new Set(stores.map(s => s.category).filter(Boolean)))];
+  // Filter out hidden stores (e.g. Walmart) from public stores registry list
+  const visibleStores = stores.filter(s => s.slug.toLowerCase() !== 'walmart');
+
+  // Categories list from visible stores
+  const categories = ['All', ...Array.from(new Set(visibleStores.map(s => s.category).filter(Boolean)))];
 
   // Helper to count coupons for a store
   const getCouponCount = (storeId: string) => {
     return coupons.filter(c => c.storeId === storeId).length;
   };
 
-  const filteredStores = stores.filter(store => {
+  const filteredStores = visibleStores.filter(store => {
     const matchesSearch = store.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
                           store.description.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesCategory = selectedCategory === 'All' || store.category === selectedCategory;
