@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { articles as initialArticles } from './data/articles';
 import { Article, Store, Coupon } from './types';
 import { storageService } from './utils/storageHelper';
+import { detectUserCountry } from './utils/geoHelper';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ArticleCard from './components/ArticleCard';
@@ -134,6 +135,7 @@ export default function App() {
     fetchSettings();
     fetchStores();
     fetchCoupons();
+    detectUserCountry();
   }, []);
 
   // URL routing state and synchronization for categories, articles, admin, stores

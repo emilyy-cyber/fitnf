@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronRight, ArrowLeft, Check, Copy, Tag, Percent, Calendar, Heart, Share2, HelpCircle } from 'lucide-react';
 import { Store, Coupon } from '../types';
+import { detectUserCountry, getStoreDestinationUrl } from '../utils/geoHelper';
 
 interface StoreDetailProps {
   store: Store;
@@ -13,6 +14,11 @@ interface StoreDetailProps {
 export default function StoreDetail({ store, coupons, onBackToStores, onUseCoupon }: StoreDetailProps) {
   const [copiedCoupon, setCopiedCoupon] = useState<Coupon | null>(null);
   const [showNotification, setShowNotification] = useState(false);
+
+  // Pre-fetch IP location on mount so redirect determination is instant
+  useEffect(() => {
+    detectUserCountry();
+  }, []);
 
   // Filter coupons for this specific store & sort top offers first, then promo codes, then deals
   const topIds = ['coupon-walmart-top-1', 'coupon-walmart-top-2', 'coupon-walmart-top-3', 'coupon-walmart-top-4'];
@@ -32,9 +38,19 @@ export default function StoreDetail({ store, coupons, onBackToStores, onUseCoupo
     });
 
   const handleGetDealOrCode = async (coupon: Coupon) => {
-    // 1. Open store link in a new tab
-    const url = coupon.targetUrl || store.targetUrl;
-    window.open(url, '_blank', 'noopener,noreferrer');
+    const rawUrl = coupon.targetUrl || store.targetUrl;
+
+    // Open blank tab immediately to avoid popup blockers
+    const newWindow = window.open('about:blank', '_blank', 'noopener,noreferrer');
+
+    // 1. Determine destination based on user IP location (US -> affiliate link, Non-US -> clean brand domain)
+    const destinationUrl = await getStoreDestinationUrl(rawUrl, store.name, store.slug);
+
+    if (newWindow) {
+      newWindow.location.href = destinationUrl;
+    } else {
+      window.open(destinationUrl, '_blank', 'noopener,noreferrer');
+    }
 
     // 2. Increment used counter via API
     await onUseCoupon(coupon.id);
