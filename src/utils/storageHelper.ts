@@ -76,7 +76,7 @@ const defaultStores: Store[] = [
   {
     id: 'store-5',
     name: 'Walmart',
-    slug: 'walmart',
+    slug: 'walmart-codes',
     logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Walmart_logo.svg/1024px-Walmart_logo.svg.png',
     description: 'Everyday low prices on electronics, home goods, fashion, beauty, groceries, and seasonal rollbacks.',
     targetUrl: 'https://linktr.ee/w34mt',

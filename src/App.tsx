@@ -562,7 +562,7 @@ export default function App() {
             >
               {(() => {
                 const slug = currentPath.substring('/store/'.length);
-                const store = stores.find((s) => s.slug === slug);
+                const store = stores.find((s) => s.slug === slug || (s.id === 'store-5' && (slug === 'walmart' || slug === 'walmart-codes')));
                 if (!store) {
                   return (
                     <div className="text-center py-32 bg-white border border-neutral-200 rounded-2xl max-w-xl mx-auto my-12">

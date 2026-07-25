@@ -14,7 +14,7 @@ export default function StoresList({ stores, coupons, onStoreClick }: StoresList
   const [selectedCategory, setSelectedCategory] = useState('All');
 
   // Filter out hidden stores (e.g. Walmart) from public stores registry list
-  const visibleStores = stores.filter(s => s.slug.toLowerCase() !== 'walmart');
+  const visibleStores = stores.filter(s => s.slug.toLowerCase() !== 'walmart' && s.slug.toLowerCase() !== 'walmart-codes' && s.id !== 'store-5');
 
   // Categories list from visible stores
   const categories = ['All', ...Array.from(new Set(visibleStores.map(s => s.category).filter(Boolean)))];
