@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronRight, ArrowLeft, Check, Copy, Tag, Percent, Calendar, Heart, Share2, HelpCircle } from 'lucide-react';
 import { Store, Coupon } from '../types';
-import { detectUserCountry, getStoreDestinationUrl } from '../utils/geoHelper';
+import { detectUserCountry, getStoreDestinationUrlSync } from '../utils/geoHelper';
+import { copyToClipboard } from '../utils/clipboardHelper';
 
 interface StoreDetailProps {
   store: Store;
@@ -40,28 +41,18 @@ export default function StoreDetail({ store, coupons, onBackToStores, onUseCoupo
   const handleGetDealOrCode = async (coupon: Coupon) => {
     const rawUrl = coupon.targetUrl || store.targetUrl;
 
-    // Open blank tab immediately to avoid popup blockers
-    const newWindow = window.open('about:blank', '_blank', 'noopener,noreferrer');
+    // 1. Determine destination URL synchronously based on detected user country
+    const destinationUrl = getStoreDestinationUrlSync(rawUrl, store.name, store.slug);
 
-    // 1. Determine destination based on user IP location (US -> affiliate link, Non-US -> clean brand domain)
-    const destinationUrl = await getStoreDestinationUrl(rawUrl, store.name, store.slug);
+    // 2. Open destination link in new tab synchronously on click (bypasses all browser popup blockers)
+    window.open(destinationUrl, '_blank', 'noopener,noreferrer');
 
-    if (newWindow) {
-      newWindow.location.href = destinationUrl;
-    } else {
-      window.open(destinationUrl, '_blank', 'noopener,noreferrer');
-    }
-
-    // 2. Increment used counter via API
+    // 3. Increment used counter via API
     await onUseCoupon(coupon.id);
 
     // 3. Trigger Copy if it's a code
     if (coupon.type === 'code' && coupon.code) {
-      try {
-        await navigator.clipboard.writeText(coupon.code);
-      } catch (err) {
-        console.error('Failed to copy code to clipboard:', err);
-      }
+      await copyToClipboard(coupon.code);
     }
 
     // 4. Reveal the coupon code inside a premium top notification bar
@@ -75,12 +66,7 @@ export default function StoreDetail({ store, coupons, onBackToStores, onUseCoupo
   };
 
   const handleCopyCode = async (code: string) => {
-    try {
-      await navigator.clipboard.writeText(code);
-      // Brief visual indicator on copy icon if needed
-    } catch (err) {
-      console.error(err);
-    }
+    await copyToClipboard(code);
   };
 
   return (
@@ -316,12 +302,14 @@ export default function StoreDetail({ store, coupons, onBackToStores, onUseCoupo
                 SHARE STORE
               </h4>
               <p className="text-[11px] text-[#5a5855] leading-relaxed font-sans mb-4">
-                Share these verified Nordstrom codes with family and friends to help them save on luxury fashion items.
+                Share these verified {store.name} codes with family and friends to help them save.
               </p>
               <button
-                onClick={() => {
-                  navigator.clipboard.writeText(window.location.href);
-                  alert('Store link copied to clipboard!');
+                onClick={async () => {
+                  const success = await copyToClipboard(window.location.href);
+                  if (success) {
+                    alert('Store link copied to clipboard!');
+                  }
                 }}
                 className="w-full bg-transparent border border-theme-border text-theme-text hover:bg-theme-secondary py-2 font-mono text-[9px] uppercase tracking-widest transition-all font-semibold rounded-none cursor-pointer"
               >

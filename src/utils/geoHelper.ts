@@ -19,15 +19,16 @@ export async function detectUserCountry(): Promise<string> {
   if (geoCheckPromise) return geoCheckPromise;
 
   geoCheckPromise = (async () => {
+    // 1. Cloudflare trace (Fastest, HTTPS, CORS-friendly, no rate limits)
     try {
-      // 1. Primary IP API check
-      const res = await fetch('https://ipapi.co/json/', {
-        signal: AbortSignal.timeout(3000),
+      const res = await fetch('https://www.cloudflare.com/cdn-cgi/trace', {
+        signal: AbortSignal.timeout(2500),
       });
       if (res.ok) {
-        const data = await res.json();
-        const country = (data.country_code || data.country || '').toUpperCase();
-        if (country) {
+        const text = await res.text();
+        const match = text.match(/^loc=(.+)$/m);
+        if (match && match[1]) {
+          const country = match[1].trim().toUpperCase();
           cachedUserCountry = country;
           try {
             sessionStorage.setItem('user_geo_country', country);
@@ -36,18 +37,18 @@ export async function detectUserCountry(): Promise<string> {
         }
       }
     } catch {
-      // Primary API failed or timed out, try fallback
+      // Cloudflare trace failed, try fallback
     }
 
+    // 2. IPWHOIS API (HTTPS, free, CORS-friendly)
     try {
-      // 2. Secondary fallback IP API
-      const res2 = await fetch('https://ip-api.com/json/?fields=status,countryCode', {
-        signal: AbortSignal.timeout(3000),
+      const res2 = await fetch('https://ipwho.is/', {
+        signal: AbortSignal.timeout(2500),
       });
       if (res2.ok) {
         const data2 = await res2.json();
-        const country2 = (data2.countryCode || '').toUpperCase();
-        if (country2) {
+        if (data2 && data2.country_code) {
+          const country2 = String(data2.country_code).toUpperCase();
           cachedUserCountry = country2;
           try {
             sessionStorage.setItem('user_geo_country', country2);
@@ -59,21 +60,56 @@ export async function detectUserCountry(): Promise<string> {
       // Fallback failed
     }
 
+    // 3. IPAPI fallback
+    try {
+      const res3 = await fetch('https://ipapi.co/json/', {
+        signal: AbortSignal.timeout(2500),
+      });
+      if (res3.ok) {
+        const data3 = await res3.json();
+        const country3 = (data3.country_code || data3.country || '').toUpperCase();
+        if (country3) {
+          cachedUserCountry = country3;
+          try {
+            sessionStorage.setItem('user_geo_country', country3);
+          } catch {}
+          return country3;
+        }
+      }
+    } catch {
+      // Fallback failed
+    }
+
     // Default fallback if IP check fails or is blocked
-    cachedUserCountry = 'NON_US';
-    return 'NON_US';
+    cachedUserCountry = 'US';
+    return 'US';
   })();
 
   return geoCheckPromise;
 }
 
 /**
- * Gets the target destination URL based on user location.
+ * Gets the current cached user country synchronously if available
+ */
+export function getCachedUserCountry(): string {
+  if (cachedUserCountry) return cachedUserCountry;
+  try {
+    const saved = sessionStorage.getItem('user_geo_country');
+    if (saved) {
+      cachedUserCountry = saved;
+      return saved;
+    }
+  } catch {}
+  return 'US'; // Default to US if not yet resolved
+}
+
+/**
+ * Synchronous URL calculation so window.open can run directly in click handler
  * - If user is from real US IP -> opens the affiliate / linktree link (e.g. https://linktr.ee/w34mt).
  * - If user is from Non-US IP -> opens the simple clean official brand domain (e.g. https://www.walmart.com).
  */
-export async function getStoreDestinationUrl(affiliateUrl: string, storeName: string, storeSlug: string): Promise<string> {
-  const country = await detectUserCountry();
+export function getStoreDestinationUrlSync(affiliateUrl: string, storeName: string, storeSlug: string): string {
+  const country = getCachedUserCountry();
   const isUS = country === 'US';
 
   if (isUS) {
